@@ -12,8 +12,25 @@ const PORT = process.env.PORT || 3000;
 // Enable CORS
 app.use(cors());
 
-// Configure multer for file uploads
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+  fileFilter: (req, file, cb) => {
+    const allowedMimeTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ];
+    if (allowedMimeTypes.includes(file.mimetype)) {
+      cb(null, true); // Accept the file
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG, PDF, DOC, and DOCX are allowed.'));
+    }
+  },
+});
 
 // Google Drive API setup
 const auth = new google.auth.GoogleAuth({
@@ -83,7 +100,7 @@ async function uploadTextFile(text, folderId) {
 
     const response = await drive.files.create({
       requestBody: {
-        name: 'comments.txt',
+        name: 'text-input.txt',
         parents: [folderId],
       },
       media: {
@@ -101,7 +118,7 @@ async function uploadTextFile(text, folderId) {
 }
 
 // Function to send email notification
-async function sendEmail(to, folderName) {
+async function sendEmail(to, folderName, folderId) {
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -111,11 +128,12 @@ async function sendEmail(to, folderName) {
       },
     });
 
+    const folderLink = `https://drive.google.com/drive/folders/${folderId}`;
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to,
       subject: 'File Upload Notification',
-      text: `Your files and text have been uploaded to the folder: ${folderName}.`,
+      text: `Your files and text have been uploaded to the folder: ${folderName}. You can access it here: ${folderLink}.`,
     };
 
     await transporter.sendMail(mailOptions);
@@ -127,53 +145,69 @@ async function sendEmail(to, folderName) {
 }
 
 // File upload endpoint
-app.post('/upload', upload.single('file'), async (req, res) => {
-  try {
-    const parentFolderId = process.env.GOOGLE_FOLDER_ID;
-    const file = req.file;
-    const textInput = req.body.text;
-    const email = req.body.email;
-
-    if (!file) {
-      return res.status(400).json({ message: 'No file uploaded.' });
+app.post('/upload', (req, res) => {
+  upload.single('file')(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ message: err.message });
+    } else if (err) {
+      return res.status(400).json({ message: err.message });
     }
 
-    // Create a new folder
-    console.time('Folder Creation');
-    const folderName = new Date().toISOString();
-    const newFolderId = await createFolder(folderName, parentFolderId);
-    console.timeEnd('Folder Creation');
+    // Proceed with your existing logic if no errors
+    try {
+      const parentFolderId = process.env.GOOGLE_FOLDER_ID;
+      const file = req.file;
+      const textInput = req.body.text;
+      const email = req.body.email;
 
-    // Upload the file
-    console.time('File Upload');
-    const fileResponse = await uploadToDrive(file, newFolderId);
-    console.timeEnd('File Upload');
+      if (!file) {
+        return res.status(400).json({ message: 'No file uploaded.' });
+      }
 
-    // Upload the .txt file
-    console.time('Text File Upload');
-    const textFileResponse = await uploadTextFile(textInput, newFolderId);
-    console.timeEnd('Text File Upload');
+         // Check file size (if multer didn't catch it)
+      if (file.size > 5 * 1024 * 1024) {
+      return res.status(400).json({ message: 'File size exceeds the 5MB limit.' });
+      }
 
-    // Send email only after everything is complete
-    if (email) {
-      console.time('Email Sending');
-      await sendEmail(email, folderName);
-      console.timeEnd('Email Sending');
+      // Create a new folder
+      console.time('Folder Creation');
+      const folderName = new Date().toISOString();
+      const newFolderId = await createFolder(folderName, parentFolderId);
+      console.timeEnd('Folder Creation');
+
+      // Upload the file
+      console.time('File Upload');
+      const fileResponse = await uploadToDrive(file, newFolderId);
+      console.timeEnd('File Upload');
+
+      // Upload the .txt file
+      console.time('Text File Upload');
+      const textFileResponse = await uploadTextFile(textInput, newFolderId);
+      console.timeEnd('Text File Upload');
+
+      // Send email only after everything is complete
+      if (email) {
+        console.time('Email Sending');
+        await sendEmail(email, folderName, newFolderId);
+        console.timeEnd('Email Sending');
+      }
+
+      // Respond to the client
+      res.status(200).json({
+        message: 'Files uploaded successfully!',
+        folderId: newFolderId,
+        folderName: folderName,
+        fileId: fileResponse.id,
+        textFileId: textFileResponse ? textFileResponse.id : null,
+      });
+    } catch (error) {
+      console.error('Error during upload:', error);
+      res.status(500).json({ message: 'File upload failed.', error: error.message });
     }
-
-    // Respond to the client
-    res.status(200).json({
-      message: 'Files uploaded successfully!',
-      folderId: newFolderId,
-      folderName: folderName,
-      fileId: fileResponse.id,
-      textFileId: textFileResponse ? textFileResponse.id : null,
-    });
-  } catch (error) {
-    console.error('Error during upload:', error);
-    res.status(500).json({ message: 'File upload failed.', error: error.message });
-  }
+  });
 });
+
+
 
 // Start the server
 app.listen(PORT, () => {
