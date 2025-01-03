@@ -39,7 +39,6 @@ const auth = new google.auth.GoogleAuth({
 });
 const drive = google.drive({ version: 'v3', auth });
 
-// Function to create a folder in Google Drive
 async function createFolder(folderName, parentFolderId) {
   try {
     const folderMetadata = {
@@ -53,14 +52,13 @@ async function createFolder(folderName, parentFolderId) {
       fields: 'id, name',
     });
 
-    return response.data.id; // Return folder ID
+    return response.data.id;
   } catch (error) {
     console.error('Error creating folder:', error);
     throw error;
   }
 }
 
-// Function to upload a file to Google Drive
 async function uploadToDrive(file, folderId) {
   try {
     const bufferStream = new Readable();
@@ -86,12 +84,11 @@ async function uploadToDrive(file, folderId) {
   }
 }
 
-// Function to create and upload a .txt file to Google Drive
 async function uploadTextFile(text, folderId) {
   try {
     if (!text || text.trim() === '') {
       console.log('No text provided for .txt file creation.');
-      return null; // Skip if text is empty
+      return null;
     }
 
     const textStream = new Readable();
@@ -117,7 +114,6 @@ async function uploadTextFile(text, folderId) {
   }
 }
 
-// Function to send email notification
 async function sendEmail(to, folderName, folderId) {
   try {
     const transporter = nodemailer.createTransport({
@@ -144,61 +140,48 @@ async function sendEmail(to, folderName, folderId) {
   }
 }
 
-// File upload endpoint
 app.post('/upload', (req, res) => {
-  upload.single('file')(req, res, async (err) => {
+  upload.array('files', 5)(req, res, async (err) => {
     if (err instanceof multer.MulterError) {
       return res.status(400).json({ message: err.message });
     } else if (err) {
       return res.status(400).json({ message: err.message });
     }
 
-    // Proceed with your existing logic if no errors
     try {
       const parentFolderId = process.env.GOOGLE_FOLDER_ID;
-      const file = req.file;
+      const files = req.files;
       const textInput = req.body.text;
-      const email = req.body.email;
+      const email = 'sincerely.yrss@gmail.com';
 
-      if (!file) {
-        return res.status(400).json({ message: 'No file uploaded.' });
+      if (!files || files.length === 0) {
+        return res.status(400).json({ message: 'No files uploaded.' });
       }
 
-         // Check file size (if multer didn't catch it)
-      if (file.size > 5 * 1024 * 1024) {
-      return res.status(400).json({ message: 'File size exceeds the 5MB limit.' });
-      }
-
-      // Create a new folder
-      console.time('Folder Creation');
       const folderName = new Date().toISOString();
+      console.time('Folder Creation');
       const newFolderId = await createFolder(folderName, parentFolderId);
       console.timeEnd('Folder Creation');
 
-      // Upload the file
+
       console.time('File Upload');
-      const fileResponse = await uploadToDrive(file, newFolderId);
+      for (const file of files) {
+        await uploadToDrive(file, newFolderId);
+      }
       console.timeEnd('File Upload');
 
-      // Upload the .txt file
       console.time('Text File Upload');
       const textFileResponse = await uploadTextFile(textInput, newFolderId);
       console.timeEnd('Text File Upload');
 
-      // Send email only after everything is complete
       if (email) {
-        console.time('Email Sending');
         await sendEmail(email, folderName, newFolderId);
-        console.timeEnd('Email Sending');
       }
 
-      // Respond to the client
       res.status(200).json({
         message: 'Files uploaded successfully!',
         folderId: newFolderId,
         folderName: folderName,
-        fileId: fileResponse.id,
-        textFileId: textFileResponse ? textFileResponse.id : null,
       });
     } catch (error) {
       console.error('Error during upload:', error);
@@ -207,9 +190,6 @@ app.post('/upload', (req, res) => {
   });
 });
 
-
-
-// Start the server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Drive File Uploader</title>
+</head>
+<body>
+  <h1>Upload Files and Text</h1>
+  <form id="upload-form">
+    <label for="file">Choose a file:</label>
+    <input type="file" id="file" name="file" required /><br><br>
+
+    <label for="text">Enter your text:</label><br>
+    <textarea id="text" name="text" rows="4" cols="50" placeholder="Enter some text..."></textarea><br><br>
+
+    <button type="submit">Upload</button>
+  </form>
+  <p id="response"></p>
+
+  <script>
+    document.getElementById('upload-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('file');
+      const textInput = document.getElementById('text').value;
+     // const emailInput = document.getElementById('email').value;
+
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please select a file to upload.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('text', textInput);
+      //formData.append('email', emailInput);
+
+      try {
+        const response = await fetch('http://localhost:3000/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          document.getElementById('response').innerText = `Upload successful! Folder: ${result.folderName}`;
+          document.getElementById('response').style.color = 'green';
+        } else {
+          document.getElementById('response').innerText = `Error: ${result.message}`;
+          document.getElementById('response').style.color = 'red';
+        }
+      } catch (error) {
+        console.error('Upload error:', error);
+        document.getElementById('response').innerText = 'An unexpected error occurred.';
+        document.getElementById('response').style.color = 'red';
+      }
+    });
+  </script>
+</body>
+</html>

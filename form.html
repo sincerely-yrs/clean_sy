@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html>
+<!--a-->
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/sincerely-yrs/Quentin/stylesheet.css">
+     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/sincerely-yrs/LeagueSpartan@master/stylesheet.css">
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+    <script src="https://momentjs.com/downloads/moment.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.4/gsap.min.js" type="text/javascript"></script>
+    <script src="https://use.fontawesome.com/cc180ce8d7.js" type="text/javascript"></script>
+    <script src="https://kit.fontawesome.com/74b80e0ce8.js" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width">
+</head>
+
+<body>
+    <div class="container-fluid p-0 h-lg-100">
+        <div class="row no-gutters">
+            <div class="col-lg-12 row1 r1">
+                <img class="top-border" src="https://raw.githubusercontent.com/sincerely-yrs/sincerely-yrs.github.io/master/assets/top-border-2.svg" type="image/svg+xml">
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-lg-12 row2 r2 d-flex justify-content-end align-items-center">
+                <img class="stamps" src="https://raw.githubusercontent.com/sincerely-yrs/sincerely-yrs.github.io/master/assets/stamps.svg" type="image/svg+xml">
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-lg-12 row3 r3 d-flex justify-content-center align-items-center text-center">
+                <div class="title">
+                    Sincerely<br>Yours
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-lg-12 row2 r4 d-flex justify-content-center">
+                <img class="arrow" src="https://raw.githubusercontent.com/sincerely-yrs/sincerely-yrs.github.io/master/assets/scroll-icon.svg" type="image/svg+xml">
+            </div>
+        </div>
+    </div>
+    <div class="bottom container-fluid p-0">
+        <div class="row no-gutters align-items-center h-lg-100" id="sec2">
+            <div class="row justify-content-center">
+                <div class="left col-lg-4 width">
+                    <div class="heading">Sincerely Yours</div>
+                    <p class="paragraph">
+                        In 2019, I was rummaging through my parents’ garage and uncovered something incredible — a box full of letters my parents had sent to each other early in their relationship. I picked up the box and brought them inside for my parents to read aloud.<br><br>
+
+                        Letter after letter, my parents couldn’t believe they’d written the words they were reading. I was amazed how these letters captured such a vivid and intimate snapshot of their feelings and emotions from a time even their memories couldn't retain.<br><br>
+
+
+                        I couldn’t let these beautiful words continue to collect dust in a garage, so I created <a href="https://www.instagram.com/sincerely__yrs" target="_blank" rel="noopener noreferrer">Sincerely Yours</a> — a collection of letters, poems, cards, text messages, and other media displaying various expressions of love across different languages, generations, and relationships.
+                </div>
+                <div class="right col-lg-4 width">
+                    <div class="heading">Have a letter to share?</div>
+                    <p class="paragraph">         
+                        There is no criteria for submissions. Submissions can express your love of anything - yourself, a parent, a friend, a pet, a food, a hobby, or even a feeling like how the sun feels on your skin.<br><br>
+
+                        Be sure to black out any information you don't want shared such as names and addresses before submitting.<br><br>
+
+                        Just click the button below and anonymously upload your files.<br><br>
+
+
+                    <input class="submit-button" type="button" value="Share Your Letters">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-0">
+        <div class="row no-gutters align-items-center">
+            <div class="row no-gutters justify-content-center overlay">
+                <div class="col-lg-8 pad">
+                    <div class="row no-gutters justify-content-end close-container">
+                        <i class="fa fa-times overlay-close"></i>
+                    </div>
+                    <div class="row no-gutters error-container">
+                    </div>
+                    <div class="row no-gutters">
+                        <div class='contain'>
+                            <div class="dropzone">
+                                <form id="form-input" enctype="multipart/form-data">
+                                    <label for="file" class="dropzone-container">
+                                        <div class="file-icon">+</div>
+                                        <div class="file-icon-2"></div>
+                                        <div class="dropzone-title" id="outputy">
+                                            Drag and drop your files here, or <span class="browse">browse</span>
+                                        </div>
+                                        <div class="dropzone-sub-title">
+                                            5MB max size per file. 5 files allowed per upload.
+                                        </div>
+                                        <div class="dropzone-sub-title">
+                                            Supports: .jpeg, .jpg, .png, .pdf, .doc, .docx
+                                        </div>
+                                        <input type="file" id="file" multiple class="file-input" name="file">
+                                    </label>
+                                    <div class="uploading-container">
+                                        <div id=inProgress>
+                                            <div class="ball-triangle-path">
+                                                <div></div>
+                                                <div></div>
+                                                <div></div>
+                                            </div>
+                                            <div class="dropzone-title upload">
+                                                Uploading...
+                                            </div>
+                                        </div>
+                                        <div id="complete">
+                                            <div>
+                                                <img class="mail-icon" src="https://raw.githubusercontent.com/sincerely-yrs/sincerely-yrs.github.io/master/assets/message_success.svg" type="image/svg+xml">
+                                            </div>
+                                            <div class="dropzone-title success">
+                                                Thank You For Sending Your Love!
+                                            </div>
+                                            <div class="dropzone-sub-title">
+                                                Look out for your letter on Sincerely Yours!
+                                            </div>
+                                        </div>
+                                    </div>
+<!--                                    <div class='row no-gutters justify-content-center'>-->
+<!--                                        <input type="button" class="upload-button" value="Submit">-->
+<!--                                    </div>-->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row no-gutters comment-container'>
+                        <textarea class="comment-box" placeholder="Add comments here..." maxlength="3300"></textarea>
+                    </div>
+                    <div class='row no-gutters justify-content-center'>
+                        <input type="button" class="upload-button" value="Submit">
+                    </div>
+                    <div class='row no-gutters justify-content-center'>
+                        <output id="result" />
+                        <div id="output" class="input-field col m12 s6"></div>
+                        <div id="outputx" class="input-field col m12 s6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+
+
+    var countFiles = 0;
+    var countFileCompletion = 0;
+    var countCreate = 1;
+    var countError = 1;
+    var countErrorOnChange = 0;
+    var textColorDark = "#596375";
+    var bgColorSuccess = "#F4FFF3";
+    var bgColorFail = "#FFF3F3";
+    var fileArr = [];
+    var elementArr = [];
+    var line1 = $('#env-line-1');
+    var line2 = $('#env-line-2');
+    var line3 = $('#env-line-3');
+    var mailIcon = $('#mail-icon');
+    var envLid = $('#env-lid');
+    var envPaper = $('#env-paper');
+    var barLength = 0.85;
+    var selectedFiles = [];
+    var test_files = [];
+
+
+    $(".arrow").click(function() {
+        $('html,body').animate({
+                scrollTop: $(".bottom").position().top
+            },
+            750);
+    });
+
+
+
+    $('.submit-button').on("click", function() {
+        $('.contain').show();
+        $('.contain').css("display", "flex-fill");
+        $('.overlay').fadeIn().css("display", "flex");
+        $('body').css('overflow', 'hidden');
+
+    });
+
+
+
+    $('.overlay-close').on("click", function() {
+        if ($('#complete').is(':visible')) {
+            fileArr.length = 0;
+            elementArr.length = 0;
+            $('#complete').hide()
+            $('#inProgress').show();
+            $('.uploading-container').hide()
+            $('.dropzone-container').show()
+            $(".comment-box").val("")
+            $('.dropzone').css('cursor','pointer')
+            countFiles = 0;
+            countFileCompletion = 0;
+            countCreate = 1;
+            countError = 1;
+
+        }
+        $('.overlay').css("display", "none");
+ 
+        removeBars("error-bar");
+        $('body').css('overflow', 'auto');
+    });
+
+
+    fontsize = function() {
+        var titleSize = $(".text-white").width() * 0.16; // 10% of container width
+        var paragraphSize = $(".text-white").height() * 0.019;
+
+        var iconSize = $(".text-white").height() * $(".text-white").height() * 0.00003088;
+        var iconMarginSecond = $(".text-white").height() * 0.0556;
+        var iconMargin = $(".text-white").height() * 0.0157;
+        $("#left-title").css('font-size', titleSize);
+        $("#left-text").css('font-size', paragraphSize);
+
+
+    };
+    $(window).resize(fontsize);
+    $(document).ready(fontsize);
+
+    var onDragEnter = function(event) {
+            $(".dropzone-container").addClass("dragover");
+        },
+
+        onDragOver = function(event) {
+            event.preventDefault();
+            if (!$(".dropzone-container").hasClass("dragover"))
+                $(".dropzone-container").addClass("dragover");
+        },
+
+        onDragLeave = function(event) {
+            event.preventDefault();
+            $(".dropzone-container").removeClass("dragover");
+        },
+
+        onDrop = function(event) {
+            $(".dropzone-container").removeClass("dragover");
+            $(".dropzone-container").addClass("dragdrop");
+            console.log(event.originalEvent.dataTransfer.files);
+        };
+
+
+    $(".dropzone-container")
+        .on("dragenter", onDragEnter)
+        .on("dragover", onDragOver)
+        .on("dragleave", onDragLeave)
+        .on("drop", onDrop);
+
+
+
+    $('.comment-box').each(function() {
+
+        this.setAttribute('style', 'height:' + (this.scrollHeight));
+    }).on('input', function() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
+
+
+
+    $('#form-input').on("change", function() {
+
+        countErrorOnChange = 0;
+
+        // If greater than 5 files,
+        if (!fileNumValidation()) {
+            $("#file")[0].value = '';
+        } else {
+
+
+
+
+            const fileInput  = document.getElementById('file');
+            //   const fileInput = document.querySelector('#form-input');
+            const formData = new FormData();
+            //  const formData2 = new FormData();
+            //  formData2.append('files', fileArr[0]);
+            //formData.append('files', fileInput.files[0]);
+            const files = fileInput.files;
+            for (const file of files) {
+                formData.append('files', file); // Append multiple files
+            }
+            formData.append('text', "text");
+
+
+            for (let [key, value] of formData.entries()) {
+                console.log(`${key}:`, value);
+            }
+
+
+
+            for (var i = 0; i < $("#file")[0].files.length; i++) {
+                selectedFiles = Array.from($("#file")[0].files)
+                //selectedFiles = Array.from(this.files);
+                //selectedFiles = this.files; // Save the files when they are selected
+                console.log(selectedFiles); // Debug: Log the files
+
+                // fileList.push(fileInput.files[0]);
+                var file = $("#file")[0].files[i];
+                var validExt = fileExtValidation(file);
+                var validSize = fileSizeValidation(file);
+                if (validExt && validSize) {
+                    fileArr.push(file);
+                    createBar(file);
+                    elementArr.push(file.elementID);
+                    fileDataPush(file);
+                    commentAppear();
+                }
+
+
+
+
+            }
+            if (countErrorOnChange < 1) {
+                removeBars("error-bar");
+            }
+
+            $("#file")[0].value = '';
+
+        }
+
+
+
+    });
+
+
+
+    $('.upload-button').on("click", function() {
+
+        console.log("clicked");
+        if (fileArr.length == 0) {
+            document.getElementById('output').innerHTML = 'No file selected!';
+        } else {
+            const fileInput = document.querySelector('#file');
+            if (!selectedFiles || selectedFiles.length === 0) {
+                alert('No files selected for upload!');
+                return;
+            }
+
+            const formData = new FormData();
+            for (let file of fileArr) {
+                formData.append('files', file);
+            }
+
+            var text = $(".comment-box").val();
+            if (text !== "") {
+                formData.append('text', text);
+            }
+
+
+            removeBars("error-bar");
+
+            if (text = $(".comment-box").val() != "") {
+                countFiles++;
+            }
+            countFiles = countFiles + fileArr.length;
+
+
+            for (var i = 0; i < fileArr.length; i++) {
+                var file = fileArr[i];
+                var elementID = updateBars(file.elementID, 'Uploading  ' + file.name + '...', "#F3FFFF", textColorDark);
+
+            }
+
+            var folderName = moment().format("YYYY-MM-DDTHH:mm:ss.SSS");
+
+            $.ajax({
+                url: 'http://localhost:3000/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    uploadsSuccessful();
+                },
+                error: function(xhr) {
+                    const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                    $('#response').text(`Error: ${errorMessage}`).css('color', 'red');
+                }
+            });
+
+
+
+            // google.script.run.withSuccessHandler(function(r) {
+            //     createCommentFile(r.folderId);
+            //     sendEmail(r.folderId);
+            //     for (var i = 0; i < fileArr.length; i++) {
+            //         var file = fileArr[i];
+            //         fileUpload(file, r.folderId);
+            //     }
+            // }).createFolder(folderName);
+        }
+
+        toggleCommentSubmit();
+        $('.overlay-close').css("display", "none");
+        $('.dropzone-container').css("display", "none");
+        $('.uploading-container').css("display", "flex");
+        $('.dropzone').css('cursor','default')
+
+    });
+
+
+
+
+    function uploadsSuccessful() {
+
+        removeBars("file-bar");
+
+        $('.uploading-container').slideUp(350, function() {
+            $('#inProgress').hide();
+            $('.uploading-container').slideDown(350)
+            $('#complete').show();
+            $('.dropzone').css('pointer','default');
+        })
+
+        $('.overlay-close').css("display", "block");
+
+
+
+    }
+
+ 
+    function fileUpload(file, folderid) {
+        var data = file.data
+        var imageformat = file.name.replace(/^.*\./, '');
+        var filename = file.name.match(/.*(?=\.)/)[0] + '_' + moment().format("YYYY-MM-DDTHH:mm:ss.SSS");
+
+
+        document.getElementById('output').innerHTML = '';
+        google.script.run.withSuccessHandler(function() {
+            onFileUploaded(file.elementID, 'Upload of ' + file.name + ' Successful!')
+        }).withFailureHandler(function() {
+            onFailure(file.elementID, 'Upload of ' + file.name + ' Failed.')
+        }).uploadFile(data, filename, imageformat, folderid);
+    }
+
+    function fileDataPush(file) {
+        var fr = new FileReader();
+        fr.onload = function(e) {
+
+            file.data = e.target.result.replace(/^.*,/, '');
+        }
+        fr.readAsDataURL(file);
+    }
+
+
+
+    function printFeedback(innerHTML) {
+        var output = document.getElementById("result");
+        var div = document.createElement("div");
+        div.id = "output" + countCreate;
+        div.innerHTML = innerHTML;
+        output.insertBefore(div, null);
+        countCreate++;
+        return div.id
+    }
+
+    function createBar(file) {
+
+        file.elementID = "output" + countCreate;
+        countCreate++;
+        $('<div>').prop({
+            id: file.elementID,
+            innerHTML: "<i class=\"fa fa-times times\" onclick=\"removeFileBar(" + "this" + ")\"></i>" + file.name,
+            className: 'file-bar'
+        }).appendTo($('.contain')).hide().slideDown(250);
+    }
+
+
+    function removeFileBar(element) {
+        var elementID = element.parentElement.id;
+        var index = elementArr.indexOf(elementID);
+        fileArr.splice(index, 1);
+        elementArr.splice(index, 1);
+        removeBar(element);
+        if (fileArr.length == 0) {
+
+            toggleCommentSubmit();
+        }
+        testFunction();
+    }
+
+    function testFunction() {
+
+    }
+
+    function removeFileBars() {
+        var divsToRemove = document.getElementsByClassName("file-bar");
+        for (var i = divsToRemove.length - 1; i >= 0; i--) {
+            $('#' + divsToRemove[i].id).slideToggle(250),
+                function() {
+                    divsToRemove[i].remove();
+                }
+        }
+    }
+
+
+    function createErrorBar(text) {
+        if (countErrorOnChange < 1) {
+            removeErrorBars();
+        }
+
+        $('<div>').prop({
+            id: "error" + countError,
+            innerHTML: "<div class=\"fa fa-exclamation-circle\"></div>" + "<i class=\"fa fa-times times\" onclick=\"removeBar(" + "this" + ")\"></i>" + "<div class = \"message\">" + text + "</div>",
+            className: 'error-bar'
+        }).appendTo($('.error-container')).hide().slideToggle(250);
+        countError++;
+        countErrorOnChange++;
+    }
+
+    function removeErrorBars() {
+        var divsToRemove = document.getElementsByClassName("error-bar");
+        for (var i = divsToRemove.length - 1; i >= 0; i--) {
+            $('#' + divsToRemove[i].id).remove();
+        }
+    }
+
+    function removeBars(className) {
+        var divsToRemove = document.getElementsByClassName(className);
+        for (var i = divsToRemove.length - 1; i >= 0; i--) {
+            var elementID = divsToRemove[i].id
+            $('#' + elementID).slideToggle(250, function(elementID) {
+                $(this).remove();
+            })
+
+        }
+    }
+
+
+    function removeBar(element) {
+        var elementID = element.parentElement.id;
+        var elementTag = "#" + elementID;
+        $(elementTag).slideToggle(250, function() {
+            element.parentElement.remove();
+        });
+    }
+
+
+    function commentAppear() {
+        $('.comment-container').slideDown(250);
+        $('.upload-button').slideDown(250);
+    }
+
+    function toggleCommentSubmit() {
+        $('.comment-container').slideToggle(250);
+        $('.upload-button').slideToggle(250);
+    }
+
+    function createCommentFile(folderid) {
+        var text = $(".comment-box").val()
+        if (text !== "") {
+            google.script.run.withSuccessHandler(function() {
+                $('.comment-box').css("background-color", bgColorSuccess);
+                countFileCompletion++;
+            }).withFailureHandler(function() {
+                $('.comment-box').css("background-color:", bgColorFail);
+            }).createTextFile(text, "comment", folderid);
+        }
+    }
+
+    function sendEmail(folderid) {
+        google.script.run.sendEmail("https://drive.google.com/drive/u/1/folders/" + folderid);
+    }
+
+
+    function updateBars(elementID, text, backgroundColor, textColor) {
+        document.getElementById(elementID).innerHTML = text;
+        $('#' + elementID).css("color", textColor);
+        return elementID;
+    }
+
+    function onFileUploaded(elementID, text) {
+        updateBars(elementID, text, bgColorSuccess, textColorDark);
+        countFileCompletion++;
+        if (countFileCompletion == countFiles) {
+            uploadsSuccessful();
+        }
+    }
+
+    function onFailure(elementID, text) {
+        updateBars(elementID, text, bgColorFail, textColorDark);
+    }
+
+    function fileNumValidation() {
+        var flag = true;
+        if (($("#file")[0].files.length + fileArr.length) > 5) {
+            createErrorBar("Maximum of 5 files allowed per Upload");
+            flag = false;
+        }
+        return flag;
+    }
+
+
+    function fileExtValidation(file) {
+        var flag = true;
+        var _validFileExtensions = [".jpeg", ".jpg", ".png", ".pdf", ".doc", ".docx"];
+        var fileName = file.name;
+        if (fileName.length > 0) {
+            var blnValid = false;
+            for (var j = 0; j < _validFileExtensions.length; j++) {
+                var curExtension = _validFileExtensions[j];
+                if (fileName.match('\.[^.]*$')[0].toLowerCase() == curExtension.toLowerCase()) {
+                    blnValid = true;
+                    break;
+                }
+            }
+            if (!blnValid) {
+                var innerHTML = fileName + " is an unsupported file type."
+                createErrorBar(innerHTML);
+                flag = false;
+            }
+        }
+        return flag;
+    }
+
+    function fileSizeValidation(file) {
+        var flag = true;
+        var size = file.size;
+        var filename = file.name;
+
+        if (size >= 5050000) {
+            var innerHTML = filename + " is " + formatBytes(size) + " and exceeds the maximum file size of 5 MB.";
+            createErrorBar(innerHTML);
+            flag = false;
+        }
+        return flag;
+    }
+    function formatBytes(bytes, decimals) {
+        if (bytes == 0) return '0 Bytes';
+        var k = 1000,
+            dm = decimals || 2,
+            sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+            i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+    }
+
+
+    function animateEnvelope() {
+        var tl = new TimelineMax({ repeat: -1, yoyo: true });
+
+        TweenLite.defaultEase = Back.easeOut;
+
+        tl
+            .to(envLid, 0.3, {
+                scaleY: -1,
+                y: 1.5,
+            })
+            .fromTo(envPaper, 0.4, {
+                transformOrigin: "50% 100%",
+                scaleY: 0,
+            }, {
+                scaleY: 1,
+            }, "=-0.25")
+            .staggerFromTo([line1, line2, line3], 0.3, {
+                transformOrigin: "50% 50%",
+                scaleX: 0
+            }, {
+                scaleX: 1,
+            }, -0.09)
+
+    }
+    </script>
+    <style>
+
+    :root {
+        --upload-blue: #4ECDC4;
+        --right-bg-color: #F7FFF7;
+        --error-bg-color: #FF6B6B;
+        --dropzone-bg-default: #fafcfd;
+        --dropzone-text: #1A535C;
+        --dropzone-hover-text: #596375;
+        --file-icon-border: #b8bec9;
+        --file-icon-before-border: #ccd0d8;
+
+        --yellow: #FFE66D;
+
+        --index-z: -1;
+        /*--avenir-next: 'Roboto';*/
+        --avenir-next: 'Khula', sans-serif;
+        /*--avenir-next: 'Toppan Bunkyu Gothic';*/
+        /*--avenir-next: 'Montserrat';*/
+
+
+        --width-percent: 85%;
+
+        --blue: #586C83;
+        --bg-color: #F7F3EA;
+
+    }
+
+
+    body {
+        background-color: #F7F3EA;
+    }
+
+    #sec2 {
+        position: relative;
+    }
+
+    .h-lg-100 {
+        height: 100vh;
+    }
+
+    .heading {
+        color: var(--blue);
+        padding-bottom: 1.25rem;
+        font-size: 2.25rem;
+        font-family: var(--avenir-next);
+        font-weight: 800;
+    }
+
+    .paragraph {
+        color: var(--blue);
+        font-family: var(--avenir-next), monospace;
+    }
+
+    .submit-button {
+        background-color: var(--blue);
+        color: var(--bg-color);
+        border-radius: 22px;
+        font-size: 1.05rem;
+        border: none;
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;
+        font-family: var(--avenir-next), monospace;
+        font-weight: 550;
+        padding: 0.75rem 1.4rem 0.75rem 1.4rem;
+
+    }
+
+    .submit-button:hover {
+        filter: brightness(120%);
+    }
+
+    .pad {
+        padding-bottom: 30px;
+        padding-top: 30px;
+    }
+
+
+    .close-container {
+        font-size: 1.25em;
+        padding-bottom: 2em;
+        padding-right: 1em;
+    }
+
+
+    .uploading-container {
+        display: none;
+        padding: 2rem 0;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 0px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        color: var(--dropzone-text);
+        background-color: var(--dropzone-bg-default);
+        background-size: 16px 16px;
+    }
+
+
+    /*larger*/
+    @media screen and (min-width: 992px) {
+        .r1 {
+            /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+            height: 5vh;
+        }
+
+        .r2 {
+            /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+            height: 20vh;
+        }
+
+        .r3 {
+            /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+            height: 50vh;
+        }
+
+        .r4 {
+            /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+            height: 25vh;
+        }
+
+        body {
+            background-color: var(--bg-color);
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        .top-border {
+            width: 100%;
+            display: block;
+        }
+
+        .title {
+            font-family: 'quentin', monospace;
+            color: var(--blue);
+            font-size: 10rem;
+            line-height: 1.2;
+        }
+
+        .arrow {
+            width: 5%;
+        }
+
+        .stamps {
+            height: 75%;
+            margin-right: 2rem;
+        }
+
+        .left {
+            margin-right: 5rem;
+        }
+
+    }
+
+
+    /*smaller*/
+    @media screen and (max-width: 991px) {
+
+
+        .r1 {
+            /*border: 1px solid blue;*/
+            height: 5vh;
+        }
+
+        .r2 {
+            /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+            height: 20vh;
+        }
+
+        .r3 {
+            /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+            height: 50vh;
+        }
+
+        .r4 {
+            /*border: 1px solid rgba(0, 0, 0, 0.1);*/
+            height: 25vh;
+        }
+
+
+        .top-border {
+            width: 100%;
+            display: block;
+        }
+
+        .title {
+            font-family: 'quentin', monospace;
+            color: #586C83;
+            font-size: 14vw;
+            line-height: 1.2;
+        }
+
+        .arrow {
+            width: 8%;
+        }
+
+        .width {
+            max-width: 90%;
+            margin-top: 2rem;
+        }
+
+        .stamps {
+            height: 50%;
+        }
+
+
+    }
+
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+
+    .arrow {
+        transition: transform .1s ease-in-out;
+    }
+
+    .arrow:hover {
+        transform: scale(1.125);
+    }
+
+    .bg-color-left {
+        background: var(--upload-blue);
+    }
+
+    .bg-color-right {
+        background: var(--right-bg-color);
+    }
+
+    #left-title {
+        font-family: 'quentin', monospace;
+        font-size: 15vh;
+        color: var(--right-bg-color);
+        padding-top: 4vh;
+    }
+
+    #footer {
+        height: 10px;
+    }
+
+    #left-text {
+        color: var(--right-bg-color);
+        margin-top: 10%;
+        margin-left: 15%;
+        margin-right: 15%;
+        font-size: calc(14px + (16 - 14) * ((100vw - 300px) / (1600 - 300)));
+        /*text-shadow: 0.5px 0.5px #9F9F9F;*/
+        font-family: var(--avenir-next), monospace;
+
+
+    }
+
+
+    .st0 {
+        fill: var(--error-bg-color);
+    }
+
+    /*Flap*/
+
+    .st1 {
+        fill: #E6EBE0;
+    }
+
+    /*Paper*/
+
+    .st2 {
+        fill: #CBCCCA;
+    }
+
+    /*Paper Text*/
+
+    .st3 {
+        fill: var(--upload-blue);
+    }
+
+    /*Left*/
+
+    .st4 {
+        fill: var(--yellow);
+    }
+
+    /*Right*/
+
+    #mail-icon {
+        width: 120px;
+        z-index: 22;
+    }
+
+    #complete {
+        display: none;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-color: rgba(196, 195, 195, 0.55);
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        overflow-y: scroll;
+    }
+
+
+    .error-bar {
+        margin-bottom: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        background-color: var(--error-bg-color);
+        font-family: var(--avenir-next);
+        font-size: 1rem;
+        padding-right: 0.25em;
+        padding-top: 0.25em;
+        padding-bottom: 0.15em;
+        padding-left: 1.5em;
+        color: var(--right-bg-color);
+        box-sizing: border-box;
+        width: 100%;
+        height: auto;
+    }
+
+    .error-container {
+        box-shadow: 0 0.75rem 1.5rem rgba(19, 19, 19, 0.03);
+        margin: 0 auto;
+        margin-bottom: 0.25em;
+    }
+
+
+    .message {
+        margin-left: 1.5em;
+        margin-right: 2.5em;
+        margin-top: 0.05rem;
+        overflow-wrap: break-word;
+    }
+
+    .fa-exclamation-circle {
+        padding-right: 0.30em;
+        padding-top: 0.152em;
+        position: absolute;
+    }
+
+
+    .fa-times:before {
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .times {
+        padding-left: 1em;
+        padding-right: 1.5em;
+        padding-top: 0.152em;
+        padding-top: 0.252em;
+        float: right;
+    }
+
+    .dropzone-container.dragover,
+    .dropzone-container:hover {
+        background-color: #eee;
+        border: 1.5px dashed var(--upload-blue);
+        cursor: pointer;
+        --dropzone-bg-default: #eee;
+        --file-icon-border: var(--dropzone-hover-text);
+        --file-icon-before-border: #8C94A1;
+    }
+
+
+    .dropzone-container:hover {
+        color: var(--dropzone-hover-text);
+        cursor: pointer;
+    }
+
+
+    .dropzone-container {
+        position: relative;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        width: 50%;
+        height: 50%;
+        margin: 0px;
+        display: flex-fill;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: var(--dropzone-bg-default);
+        background-size: 16px 16px;
+    }
+
+
+
+    .dropzone-container input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 0;
+        font-size: 2rem;
+        opacity: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .dropzone-container input[type=text] {
+        background: none;
+        border: none;
+        padding: 0.5em;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 2rem;
+        box-sizing: border-box;
+    }
+
+    .contain,
+    .comment-container,
+    .error-container {
+        width: var(--width-percent);
+    }
+
+    .contain {
+        display: none;
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        background: #ffffff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.75rem 1.5rem rgba(19, 19, 19, 0.03);
+    }
+
+    .file-bar {
+        margin-top: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        background-color: var(--dropzone-bg-default);
+        font-family: var(--avenir-next);
+        font-size: 1rem;
+        padding: 0.5em;
+        padding-left: 1.5em;
+        color: var(--dropzone-text);
+        box-sizing: border-box;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    .dropzone {
+        border-radius: 0.5rem;
+        background-color: var(--dropzone-bg-default);
+        display: block;
+        cursor: pointer;
+        display: flex-fill;
+    }
+
+    .dropzone .dropzone-container {
+        padding: 2rem 0;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        color: var(--dropzone-text);
+        z-index: 20;
+        font-family: var(--avenir-next);
+        transform-style: preserve-3d;
+    }
+
+
+    .upload {
+        font-size: 1.125rem;
+        padding-top: 0.75rem;
+    }
+
+    .success {
+        font-size: 1.26rem;
+    }
+
+    .dropzone .dropzone-container .dropzone-title {
+        padding-top: 1.5rem;
+        font-size: 1.26rem;
+    }
+
+    .dropzone-sub-title {
+        padding-top: 0.2rem;
+        font-size: 0.75rem;
+    }
+
+    .dropzone-title {
+        padding-bottom: 0.5rem;
+    }
+
+    .dropzone-title,
+    .dropzone-sub-title {
+        padding-left: 0.7rem;
+        padding-right: 0.7rem;
+    }
+
+    .dropzone .dropzone-container .browse {
+        text-decoration: underline;
+        color: var(--upload-blue);
+    }
+
+    .dropzone .file-input {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+        display: flex-fill;
+    }
+
+    .dropzone-container input[type=file]::-webkit-file-upload-button {
+        width: 0;
+        padding: 0;
+        margin: 0;
+        -webkit-appearance: none;
+        border: none;
+    }
+
+
+
+    .file-icon {
+        position: relative;
+        width: 4rem;
+        height: 5.25rem;
+        padding: 0.625rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        font-size: 2rem;
+        color: var(--upload-blue);
+    }
+
+    .file-icon,
+    .file-icon:before,
+    .file-icon:after {
+        background-color: #ffffff;
+        border-radius: 0.25rem;
+        border: 0.125rem solid var(--file-icon-border);
+    }
+
+    .file-icon:before,
+    .file-icon:after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 0.125rem solid var(--file-icon-before-border);
+    }
+
+    .file-icon:before {
+        left: -0.625rem;
+        top: 0.5rem;
+        z-index: var(--index-z) !important;
+    }
+
+    .file-icon:after {
+        top: -0.25rem;
+        right: -0.25rem;
+        left: auto;
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: 0.25rem;
+        border-width: 0.625rem;
+        border-style: solid;
+        border-color: var(--dropzone-bg-default) var(--dropzone-bg-default) var(--file-icon-border) var(--file-icon-border);
+    }
+
+    .mail-icon {
+        margin-bottom: 1.125rem;
+        height: 6.5rem;
+    }
+
+    .comment-container {
+        display: none;
+        /*        display: inline-block;*/
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        background: #ffffff;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.75rem 1.5rem rgba(19, 19, 19, 0.03);
+    }
+
+    textarea::-webkit-scrollbar-track: {
+        background: #000000;
+    }
+
+    .comment-box {
+        resize: none;
+        max-height: 7em;
+        font-size: 1rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        margin: 0px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: var(--dropzone-bg-default);
+        padding: 0.7rem;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        z-index: 20;
+        font-family: var(--avenir-next);
+    }
+
+
+    .comment-box:focus {
+        outline: none !important;
+        border: 1px solid var(--dropzone-text);
+
+    }
+
+    .comment-box::placeholder {
+        color: var(--dropzone-text);
+    }
+
+    .upload-button {
+        display: none;
+        border-radius: 15px;
+        font-size: 1rem;
+        background-color: var(--dropzone-text);
+        box-shadow: 0 0.75rem 1.5rem rgba(19, 19, 19, 0.03);
+        border: none;
+        color: var(--right-bg-color);
+        padding: 5px 32px;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform .05s ease-in-out;
+        /*display: inline-block;*/
+    }
+
+    a .upload-button:hover {
+        transform: scale(1.1);
+    }
+
+
+
+    @-webkit-keyframes ball-triangle-path-1 {
+        33% {
+            -webkit-transform: translate(25px, -50px);
+            transform: translate(25px, -50px);
+        }
+
+        66% {
+            -webkit-transform: translate(50px, 0px);
+            transform: translate(50px, 0px);
+        }
+
+        100% {
+            -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+        }
+    }
+
+    @keyframes ball-triangle-path-1 {
+        33% {
+            -webkit-transform: translate(25px, -50px);
+            transform: translate(25px, -50px);
+        }
+
+        66% {
+            -webkit-transform: translate(50px, 0px);
+            transform: translate(50px, 0px);
+        }
+
+        100% {
+            -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+        }
+    }
+
+    @-webkit-keyframes ball-triangle-path-2 {
+        33% {
+            -webkit-transform: translate(25px, 50px);
+            transform: translate(25px, 50px);
+        }
+
+        66% {
+            -webkit-transform: translate(-25px, 50px);
+            transform: translate(-25px, 50px);
+        }
+
+        100% {
+            -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+        }
+    }
+
+    @keyframes ball-triangle-path-2 {
+        33% {
+            -webkit-transform: translate(25px, 50px);
+            transform: translate(25px, 50px);
+        }
+
+        66% {
+            -webkit-transform: translate(-25px, 50px);
+            transform: translate(-25px, 50px);
+        }
+
+        100% {
+            -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+        }
+    }
+
+    @-webkit-keyframes ball-triangle-path-3 {
+        33% {
+            -webkit-transform: translate(-50px, 0px);
+            transform: translate(-50px, 0px);
+        }
+
+        66% {
+            -webkit-transform: translate(-25px, -50px);
+            transform: translate(-25px, -50px);
+        }
+
+        100% {
+            -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+        }
+    }
+
+    @keyframes ball-triangle-path-3 {
+        33% {
+            -webkit-transform: translate(-50px, 0px);
+            transform: translate(-50px, 0px);
+        }
+
+        66% {
+            -webkit-transform: translate(-25px, -50px);
+            transform: translate(-25px, -50px);
+        }
+
+        100% {
+            -webkit-transform: translate(0px, 0px);
+            transform: translate(0px, 0px);
+        }
+    }
+
+    .lds-ring {
+        margin-bottom: 1rem;
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+
+    .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border: 8px solid #fff;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: var(--dropzone-text) transparent transparent transparent;
+    }
+
+    .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+
+    .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+
+    .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+
+    @keyframes lds-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .inProgress{
+        padding-top: 0.5rem;
+    }
+
+
+    .ball-triangle-path {
+        position: relative;
+        display: inline-block;
+        width: 1rem;
+        height: 2.65rem;
+        margin-top: 3rem;
+        -webkit-transform: translate(-29.994px, -37.50938px);
+        transform: translate(-29.994px, -37.50938px);
+    }
+
+    .ball-triangle-path>div:nth-child(1) {
+        -webkit-animation-name: ball-triangle-path-1;
+        animation-name: ball-triangle-path-1;
+        -webkit-animation-delay: 0;
+        animation-delay: 0;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+    }
+
+    .ball-triangle-path>div:nth-child(2) {
+        -webkit-animation-name: ball-triangle-path-2;
+        animation-name: ball-triangle-path-2;
+        -webkit-animation-delay: 0;
+        animation-delay: 0;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+    }
+
+    .ball-triangle-path>div:nth-child(3) {
+        -webkit-animation-name: ball-triangle-path-3;
+        animation-name: ball-triangle-path-3;
+        -webkit-animation-delay: 0;
+        animation-delay: 0;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+    }
+
+    .ball-triangle-path>div {
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        position: absolute;
+        display: block;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 100%;
+        /*border: 1px solid #fff;*/
+        background-color: var(--dropzone-text);
+    }
+
+    .ball-triangle-path>div:nth-of-type(1) {
+        top: 50px;
+    }
+
+    .ball-triangle-path>div:nth-of-type(2) {
+        left: 25px;
+    }
+
+    .ball-triangle-path>div:nth-of-type(3) {
+        top: 50px;
+        left: 50px;
+    }
+    </style>
+</body>
+
+</html>
