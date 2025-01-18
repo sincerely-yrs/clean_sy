@@ -152,6 +152,9 @@ app.post('/upload', (req, res) => {
       const parentFolderId = process.env.GOOGLE_FOLDER_ID;
       const files = req.files;
       const textInput = req.body.text;
+      console.log('here');
+      console.log(req.files);
+      console.log(req.body);
       const email = 'sincerely.yrss@gmail.com';
 
       if (!files || files.length === 0) {
