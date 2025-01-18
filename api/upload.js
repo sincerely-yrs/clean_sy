@@ -154,9 +154,7 @@ async function sendEmail(to, folderName, folderId) {
 
 app.post('/upload', (req, res) => {
   upload.array('files', 5)(req, res, async (err) => {
-    if (err instanceof multer.MulterError) {
-      return res.status(400).json({ message: err.message });
-    } else if (err) {
+    if (err) {
       return res.status(400).json({ message: err.message });
     }
 
