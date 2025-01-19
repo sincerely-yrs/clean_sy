@@ -1,16 +1,31 @@
-require('dotenv').config();
-const express = require('express');
-const multer = require('multer');
-const { google } = require('googleapis');
-const { Readable } = require('stream');
-const cors = require('cors');
-const nodemailer = require('nodemailer');
+//require('dotenv').config();
+// const express = require('express');
+// const multer = require('multer');
+// const { google } = require('googleapis');
+// const { Readable } = require('stream');
+// const cors = require('cors');
+// const nodemailer = require('nodemailer');
+
+import dotenv from 'dotenv';
+import express from 'express';
+import multer from 'multer';
+import { google } from 'googleapis';
+import { Readable } from 'stream';
+import nodemailer from 'nodemailer';
+import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+dotenv.config();
+//const PORT = process.env.PORT || 3000;
 
 // Enable CORS
 app.use(cors());
+
+export const config = {
+  api: {
+    bodyParser: false, // Disable default body parser
+  },
+};
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -152,7 +167,7 @@ async function sendEmail(to, folderName, folderId) {
   }
 }
 
-app.post('/upload', (req, res) => {
+app.post('/api/upload', (req, res) => {
   upload.array('files', 5)(req, res, async (err) => {
     if (err) {
       return res.status(400).json({ message: err.message });
@@ -203,6 +218,8 @@ app.post('/upload', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+export default app;
+
+// app.listen(PORT, () => {
+//   console.log(`Server running at http://localhost:${PORT}`);
+// });
