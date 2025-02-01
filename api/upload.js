@@ -183,7 +183,7 @@ app.post('/api/upload', (req, res) => {
       const email = 'sincerely.yrss@gmail.com';
 
       if (!files || files.length === 0) {
-        return res.status(400).json({ message: 'No files uploaded.' });
+        return res.status(400).json({ message: 'No files uploaded' });
       }
 
       const folderName = new Date().toISOString();
@@ -213,8 +213,9 @@ app.post('/api/upload', (req, res) => {
       });
     } catch (error) {
       console.error('Error during upload:', error);
-      res.status(500).json({ message: 'File upload failed.', error: error.message });
+      res.status(500).json({ message: 'File upload failed', error: error.message });
     }
+    console.log(res.status);
   });
 });
 

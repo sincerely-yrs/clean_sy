@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!--a-->
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/sincerely-yrs/Quentin/stylesheet.css">
@@ -105,6 +104,15 @@
                                                 Uploading...
                                             </div>
                                         </div>
+                                        <div id ="failed">
+                                            <div id = "error">
+                                                <img class="mail-icon" src="https://raw.githubusercontent.com/sincerely-yrs/sincerely-yrs.github.io/master/assets/message_failure.svg" type="image/svg+xml">
+                                            </div>
+                                            <div class="dropzone-sub-title-2">
+                                                Please try again
+                                            </div>
+                                        </div>
+
                                         <div id="complete">
                                             <div>
                                                 <img class="mail-icon" src="https://raw.githubusercontent.com/sincerely-yrs/sincerely-yrs.github.io/master/assets/message_success.svg" type="image/svg+xml">
@@ -112,14 +120,11 @@
                                             <div class="dropzone-title success">
                                                 Thank You For Sending Your Love!
                                             </div>
-                                            <div class="dropzone-sub-title">
+                                            <div class="dropzone-sub-title-2">
                                                 Look out for your letter on Sincerely Yours!
                                             </div>
                                         </div>
                                     </div>
-<!--                                    <div class='row no-gutters justify-content-center'>-->
-<!--                                        <input type="button" class="upload-button" value="Submit">-->
-<!--                                    </div>-->
                                 </form>
                             </div>
                         </div>
@@ -156,12 +161,10 @@
     var line1 = $('#env-line-1');
     var line2 = $('#env-line-2');
     var line3 = $('#env-line-3');
-    var mailIcon = $('#mail-icon');
     var envLid = $('#env-lid');
     var envPaper = $('#env-paper');
-    var barLength = 0.85;
     var selectedFiles = [];
-    var test_files = [];
+    var errorStatus = false;
 
 
     $(".arrow").click(function() {
@@ -184,21 +187,24 @@
 
 
     $('.overlay-close').on("click", function() {
-        if ($('#complete').is(':visible')) {
+        if (($('#complete').is(':visible')) || ($('#failed').is(':visible'))) {
             fileArr.length = 0;
             elementArr.length = 0;
-            $('#complete').hide()
+            $('#complete').hide();
+            $('#failed').hide();
+            $('.failed').hide();
             $('#inProgress').show();
-            $('.uploading-container').hide()
-            $('.dropzone-container').show()
-            $(".comment-box").val("")
-            $('.dropzone').css('cursor','pointer')
+            $('.uploading-container').hide();
+            $('.dropzone-container').show();
+            $(".comment-box").val("");
+            $('.dropzone').css('cursor','pointer');
             countFiles = 0;
             countFileCompletion = 0;
             countCreate = 1;
             countError = 1;
 
         }
+
         $('.overlay').css("display", "none");
  
         removeBars("error-bar");
@@ -260,8 +266,6 @@
     });
 
 
-
-
     $('#form-input').on("change", function() {
 
         countErrorOnChange = 0;
@@ -270,50 +274,32 @@
         if (!fileNumValidation()) {
             $("#file")[0].value = '';
         } else {
-
-
-
-
             const fileInput  = document.getElementById('file');
-            //   const fileInput = document.querySelector('#form-input');
-            const formData = new FormData();
-            //  const formData2 = new FormData();
-            //  formData2.append('files', fileArr[0]);
-            //formData.append('files', fileInput.files[0]);
+            //const formData = new FormData();
             const files = fileInput.files;
-            for (const file of files) {
-                formData.append('files', file); // Append multiple files
-            }
-            formData.append('text', "text");
+            // for (const file of files) {
+            //     formData.append('files', file);
+            // }
+            // formData.append('text', "text");
 
-
-            for (let [key, value] of formData.entries()) {
-                console.log(`${key}:`, value);
-            }
-
+            // for (let [key, value] of formData.entries()) {
+            //     console.log(`${key}:`, value);
+            // }
 
 
             for (var i = 0; i < $("#file")[0].files.length; i++) {
                 selectedFiles = Array.from($("#file")[0].files)
-                //selectedFiles = Array.from(this.files);
-                //selectedFiles = this.files; // Save the files when they are selected
-                console.log(selectedFiles); // Debug: Log the files
-
-                // fileList.push(fileInput.files[0]);
+                console.log(selectedFiles);
                 var file = $("#file")[0].files[i];
                 var validExt = fileExtValidation(file);
+                //var validSize = true;
                 var validSize = fileSizeValidation(file);
                 if (validExt && validSize) {
                     fileArr.push(file);
                     createBar(file);
                     elementArr.push(file.elementID);
-                    fileDataPush(file);
                     commentAppear();
                 }
-
-
-
-
             }
             if (countErrorOnChange < 1) {
                 removeBars("error-bar");
@@ -322,12 +308,7 @@
             $("#file")[0].value = '';
 
         }
-
-
-
     });
-
-
 
     $('.upload-button').on("click", function() {
 
@@ -342,15 +323,14 @@
             }
 
             const formData = new FormData();
-            for (let file of fileArr) {
-                formData.append('files', file);
-            }
+             for (let file of fileArr) { ~~~~~~~~~~~~~~~~~~~~~~~~~
+                 formData.append('files', file);
+             }
 
             var text = $(".comment-box").val();
             if (text !== "") {
                 formData.append('text', text);
             }
-
 
             removeBars("error-bar");
 
@@ -363,7 +343,6 @@
             for (var i = 0; i < fileArr.length; i++) {
                 var file = fileArr[i];
                 var elementID = updateBars(file.elementID, 'Uploading  ' + file.name + '...', "#F3FFFF", textColorDark);
-
             }
 
             var folderName = moment().format("YYYY-MM-DDTHH:mm:ss.SSS");
@@ -375,24 +354,17 @@
                 processData: false,
                 contentType: false,
                 success: function(response) {
+                    console.log('Success:',response);
                     uploadsSuccessful();
                 },
                 error: function(xhr) {
                     const errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'An unexpected error occurred.';
+                    console.log('Error:',errorMessage);
                     $('#response').text(`Error: ${errorMessage}`).css('color', 'red');
+                    uploadsFailed(errorMessage);
                 }
             });
 
-
-
-            // google.script.run.withSuccessHandler(function(r) {
-            //     createCommentFile(r.folderId);
-            //     sendEmail(r.folderId);
-            //     for (var i = 0; i < fileArr.length; i++) {
-            //         var file = fileArr[i];
-            //         fileUpload(file, r.folderId);
-            //     }
-            // }).createFolder(folderName);
         }
 
         toggleCommentSubmit();
@@ -402,9 +374,6 @@
         $('.dropzone').css('cursor','default')
 
     });
-
-
-
 
     function uploadsSuccessful() {
 
@@ -416,51 +385,27 @@
             $('#complete').show();
             $('.dropzone').css('pointer','default');
         })
+        $('.overlay-close').css("display", "block");
+    }
+
+    function uploadsFailed(text) {
+        removeBars("file-bar");
+        $('.uploading-container').slideUp(350, function() {
+            $('#inProgress').hide();
+            $('.uploading-container').slideDown(350)
+            $('#failed').show();
+
+            $('<div>').prop({
+                innerHTML: text,
+                className: 'dropzone-title failed'
+            }).appendTo($('#error'));
+        })
 
         $('.overlay-close').css("display", "block");
-
-
-
-    }
-
- 
-    function fileUpload(file, folderid) {
-        var data = file.data
-        var imageformat = file.name.replace(/^.*\./, '');
-        var filename = file.name.match(/.*(?=\.)/)[0] + '_' + moment().format("YYYY-MM-DDTHH:mm:ss.SSS");
-
-
-        document.getElementById('output').innerHTML = '';
-        google.script.run.withSuccessHandler(function() {
-            onFileUploaded(file.elementID, 'Upload of ' + file.name + ' Successful!')
-        }).withFailureHandler(function() {
-            onFailure(file.elementID, 'Upload of ' + file.name + ' Failed.')
-        }).uploadFile(data, filename, imageformat, folderid);
-    }
-
-    function fileDataPush(file) {
-        var fr = new FileReader();
-        fr.onload = function(e) {
-
-            file.data = e.target.result.replace(/^.*,/, '');
-        }
-        fr.readAsDataURL(file);
-    }
-
-
-
-    function printFeedback(innerHTML) {
-        var output = document.getElementById("result");
-        var div = document.createElement("div");
-        div.id = "output" + countCreate;
-        div.innerHTML = innerHTML;
-        output.insertBefore(div, null);
-        countCreate++;
-        return div.id
+        errorStatus = true;
     }
 
     function createBar(file) {
-
         file.elementID = "output" + countCreate;
         countCreate++;
         $('<div>').prop({
@@ -480,21 +425,6 @@
         if (fileArr.length == 0) {
 
             toggleCommentSubmit();
-        }
-        testFunction();
-    }
-
-    function testFunction() {
-
-    }
-
-    function removeFileBars() {
-        var divsToRemove = document.getElementsByClassName("file-bar");
-        for (var i = divsToRemove.length - 1; i >= 0; i--) {
-            $('#' + divsToRemove[i].id).slideToggle(250),
-                function() {
-                    divsToRemove[i].remove();
-                }
         }
     }
 
@@ -531,7 +461,6 @@
         }
     }
 
-
     function removeBar(element) {
         var elementID = element.parentElement.id;
         var elementTag = "#" + elementID;
@@ -539,7 +468,6 @@
             element.parentElement.remove();
         });
     }
-
 
     function commentAppear() {
         $('.comment-container').slideDown(250);
@@ -550,23 +478,6 @@
         $('.comment-container').slideToggle(250);
         $('.upload-button').slideToggle(250);
     }
-
-    function createCommentFile(folderid) {
-        var text = $(".comment-box").val()
-        if (text !== "") {
-            google.script.run.withSuccessHandler(function() {
-                $('.comment-box').css("background-color", bgColorSuccess);
-                countFileCompletion++;
-            }).withFailureHandler(function() {
-                $('.comment-box').css("background-color:", bgColorFail);
-            }).createTextFile(text, "comment", folderid);
-        }
-    }
-
-    function sendEmail(folderid) {
-        google.script.run.sendEmail("https://drive.google.com/drive/u/1/folders/" + folderid);
-    }
-
 
     function updateBars(elementID, text, backgroundColor, textColor) {
         document.getElementById(elementID).innerHTML = text;
@@ -670,7 +581,7 @@
     :root {
         --upload-blue: #4ECDC4;
         --right-bg-color: #F7FFF7;
-        --error-bg-color: #d95050;/*--#FF6B6B; */
+        --error-bg-color: #E04006; /*--#d95050;#FF6B6B; */
         --dropzone-bg-default: #fafcfd;
         --dropzone-text: #1A535C;
         --dropzone-hover-text: #596375;
@@ -967,6 +878,10 @@
         display: none;
     }
 
+    #failed {
+        display: none;
+    }
+
     .overlay {
         display: none;
         position: fixed;
@@ -1156,6 +1071,10 @@
         font-size: 1.26rem;
     }
 
+    .failed {
+        font-size: 1.26rem;
+    }
+
     .dropzone .dropzone-container .dropzone-title {
         padding-top: 1.5rem;
         font-size: 1.26rem;
@@ -1164,6 +1083,11 @@
     .dropzone-sub-title {
         padding-top: 0.2rem;
         font-size: 0.75rem;
+    }
+
+    .dropzone-sub-title-2 {
+        padding-top: 0.2rem;
+        font-size: 1rem;
     }
 
     .dropzone-title {
